@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: socket-io-ingress
+  namespace: default
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/group.name: service-group
+    alb.ingress.kubernetes.io/subnets: subnet-04981011675f87bd8, subnet-064edb17ae68e62de, subnet-0e6a1d387d6b3d0d7
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTP": 5000}]'
+spec:
+  ingressClassName: alb
+  rules:
+    - http:
+        paths:
+        - path: "/"
+          pathType: Prefix
+          backend:
+            service:
+              name: socket-io-app-svc
+              port:
+                number: 5000
