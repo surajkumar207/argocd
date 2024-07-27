@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deployment
+  namespace: default
+  labels:
+    app: socket-io-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: socket-io-app
+  template:
+    metadata:
+      labels:
+        app: socket-io-app
+    spec:
+      containers:
+        - name: backend
+          image: sibasish934/code-sync:14
+          ports:
+            - containerPort: 5000
+      #     volumeMounts:
+      #       - name: solar-app-keys-persistent-storage
+      #         mountPath: /opt/solar/tmp
+      # volumes:
+      #   - name: solar-app-keys-persistent-storage
+      #     persistentVolumeClaim:
+      #         claimName: solar-app-keys-claim
