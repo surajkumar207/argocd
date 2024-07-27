@@ -1,0 +1,22 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: code-sync-app
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - socket
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: code-sync-app
+        subset: v1
+      weight: 100
+    # - destination:
+#     host: ua-app
+#     subset: v2
+#   weight: 90
