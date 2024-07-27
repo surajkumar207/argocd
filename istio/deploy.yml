@@ -2,28 +2,26 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: app-deployment
-  namespace: default
   labels:
-    app: socket-io-app
+    app: code-sync-app
+    version: v1
+    istio: monitor
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: socket-io-app
+      app: code-sync-app
+      version: v1
+      istio: monitor
   template:
     metadata:
       labels:
-        app: socket-io-app
+        app: code-sync-app
+        version: v1
+        istio: monitor
     spec:
       containers:
-        - name: backend
-          image: sibasish934/code-sync:14
-          ports:
-            - containerPort: 5000
-      #     volumeMounts:
-      #       - name: solar-app-keys-persistent-storage
-      #         mountPath: /opt/solar/tmp
-      # volumes:
-      #   - name: solar-app-keys-persistent-storage
-      #     persistentVolumeClaim:
-      #         claimName: solar-app-keys-claim
+      - name: backend
+        image: sibasish934/code-sync:v5
+        ports:
+        - containerPort: 5000
